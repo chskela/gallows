@@ -3,23 +3,24 @@ class Menu {
     private var isExit: Boolean = false
 
     private fun showMenu() {
-        println(
+        print(
             """
             Здравствуйте, это игра "Виселица",
             если хотите сыграть введите "Y",
             для выхода введите "N"
+            Ввод: 
         """.trimIndent()
         )
     }
 
     fun loop() {
+        showMenu()
         do {
-            showMenu()
+            when (readlnOrNull()?.trim()?.lowercase()) {
+                "y" -> TODO()
 
-            when (readlnOrNull()) {
-                "Y" -> TODO()
-
-                "N" -> {
+                "n" -> {
+                    println("Досвидание!!!")
                     isExit = true
                 }
 
