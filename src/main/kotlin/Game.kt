@@ -39,14 +39,29 @@ class Game(private var state: State = State()) {
         val letter = input.first()
 
         state = if (state.word.contains(letter)) {
-            val newMask = state.mask.mapIndexed { index, c ->
-                if (letter == state.word[index]) letter else c
-            }.joinToString("")
+            val newMask = getNewMask(letter)
 
             state.copy(mask = newMask)
         } else {
-            state.copy(attempts = state.attempts + 1)
+            val newAttempts = state.attempts + 1
+            val newGallows = getNewGallows(newAttempts)
+
+            state.copy(attempts = newAttempts, gallows = newGallows)
         }
+    }
+
+    private fun getNewMask(letter: Char) = state.mask.mapIndexed { index, c ->
+        if (letter == state.word[index]) letter else c
+    }.joinToString("")
+
+    private fun getNewGallows(attempts: Int) = when (attempts) {
+        1 -> Gallows.Had
+        2 -> Gallows.Torso
+        3 -> Gallows.LeftHand
+        4 -> Gallows.RightHand
+        5 -> Gallows.LeftLeg
+        6 -> Gallows.RightLeg
+        else -> Gallows.Default
     }
 
     private fun validateInput(input: String): Boolean = input.isBlank() || !input.first().isLetter()
