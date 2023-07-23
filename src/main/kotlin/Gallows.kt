@@ -1,5 +1,5 @@
-sealed class Gallows(val view: String) {
-    object Default : Gallows(
+enum class Gallows(val view: String) {
+    Default(
         """
              ____
              |  |
@@ -7,9 +7,9 @@ sealed class Gallows(val view: String) {
                 |
                 |
              ___|___"""
-    )
+    ),
 
-    object Had : Gallows(
+    Had(
         """
              ____
              |  |
@@ -17,9 +17,9 @@ sealed class Gallows(val view: String) {
                 |
                 |
              ___|___"""
-    )
+    ),
 
-    object Torso : Gallows(
+    Torso(
         """
              ____
              |  |
@@ -27,9 +27,9 @@ sealed class Gallows(val view: String) {
              |  |
                |
              ___|___"""
-    )
+    ),
 
-    object LeftHand : Gallows(
+    LeftHand(
         """
              ____
              |  |
@@ -37,9 +37,9 @@ sealed class Gallows(val view: String) {
             /|  |
                |
              ___|___"""
-    )
+    ),
 
-    object RightHand : Gallows(
+    RightHand(
         """
              ____
              |  |
@@ -47,9 +47,9 @@ sealed class Gallows(val view: String) {
             /|\ |
                |
              ___|___"""
-    )
+    ),
 
-    object LeftLeg : Gallows(
+    LeftLeg(
         """
              ____
              |  |
@@ -57,9 +57,9 @@ sealed class Gallows(val view: String) {
             /|\ |
             /   |
              ___|___"""
-    )
+    ),
 
-    object RightLeg : Gallows(
+    RightLeg(
         """
              ____
              |  |
