@@ -3,6 +3,7 @@ class Game(private var state: State = State()) {
     private var isGamePlay = true
 
     fun loop() {
+        println("<============================>")
         while (isGamePlay) {
             showGameState()
             handlerUserInput()
@@ -19,9 +20,9 @@ class Game(private var state: State = State()) {
     private fun showGameState() {
         print(
             """
-            Загаданное слово: ${state.mask}
+            Загаданное слово: ${state.mask.uppercase().split("").joinToString(" ")}
             Ошибок: ${state.attempts}
-            Виселица: ${state.gallows}
+            Виселица: ${state.gallows.view}
             Введите букву: 
         """.trimIndent()
         )
