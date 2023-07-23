@@ -28,9 +28,10 @@ class Game(private var state: State = State()) {
     }
 
     private fun handlerUserInput() {
-        val input = readlnOrNull()?.trim()?.lowercase()
+        val input = readln().trim().lowercase()
 
-        if (input?.length != 1) {
+        if (validateInput(input)) {
+            println("Буква не распознана! Пожалуйста, попробуйте еще раз")
             return
         }
 
@@ -46,4 +47,6 @@ class Game(private var state: State = State()) {
             state.copy(attempts = state.attempts + 1)
         }
     }
+
+    private fun validateInput(input: String): Boolean = input.isBlank() || !input.first().isLetter()
 }
