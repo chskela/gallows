@@ -1,4 +1,4 @@
-class Menu {
+class Menu(private val game: Game) {
 
     private var isExit: Boolean = false
 
@@ -17,7 +17,10 @@ class Menu {
         showMenu()
         do {
             when (readlnOrNull()?.trim()?.lowercase()) {
-                "y" -> TODO()
+                "y" -> {
+                    println("Сыграем!!!")
+                    game.loop()
+                }
 
                 "n" -> {
                     println("Досвидание!!!")
