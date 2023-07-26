@@ -1,5 +1,7 @@
+import controllers.GameController
+
 fun main() {
 
-    val menu = Menu(Game())
-    menu.loop()
+    val game = GameController()
+    game.loop()
 }
