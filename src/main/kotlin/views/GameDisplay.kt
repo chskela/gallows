@@ -21,7 +21,7 @@ class GameDisplay {
         println("Досвидание!!!")
     }
 
-    fun showErrorInput() {
+    fun showErrorInputCommand() {
         println("Команда не распознана! Пожалуйста, попробуйте еще раз")
     }
 
@@ -34,5 +34,27 @@ class GameDisplay {
             Введите букву: 
         """.trimIndent()
         )
+    }
+
+    fun showErrorInputLetter() {
+        println("Буква не распознана! Пожалуйста, попробуйте еще раз")
+    }
+
+    fun showWin(word: String){
+        println("""
+            
+            Поздравляю, Вы победили!!!
+            Загаданное слово: ${word.uppercase()}
+            
+        """.trimIndent())
+    }
+
+    fun showGameOver(word: String){
+        println("""
+            
+            К сожалению, Вы проиграли!!!
+            Загаданное слово: ${word.uppercase()}
+            
+        """.trimIndent())
     }
 }
