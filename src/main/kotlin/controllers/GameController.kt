@@ -6,11 +6,7 @@ import models.GameStore
 import views.Gallows
 import views.GameDisplay
 
-class GameController(
-    private var gameStore: GameStore = GameStore(),
-    private val gameDisplay: GameDisplay = GameDisplay()
-) {
-
+class GameController(private var gameStore: GameStore, private val gameDisplay: GameDisplay) {
 
     private var isPlayGame = true
 
