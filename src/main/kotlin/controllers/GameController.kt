@@ -109,5 +109,6 @@ class GameController(private var gameStore: GameStore, private val gameDisplay: 
         else -> Gallows.Default
     }
 
-    private fun validateInput(input: String): Boolean = input.isBlank() || !input.first().isLetter()
+    private fun validateInput(input: String): Boolean =
+        input.isBlank() || input.length != 1 || !input.first().isLetter()
 }
