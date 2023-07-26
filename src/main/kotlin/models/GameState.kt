@@ -11,7 +11,7 @@ sealed class GameState {
         val gallows: Gallows = Gallows.Default
     ) : GameState()
 
-    object Win : GameState()
+    data class Win(val word: String) : GameState()
 
-    object GameOver : GameState()
+    data class GameOver(val word: String)  : GameState()
 }
