@@ -11,8 +11,6 @@ class GameController(private var gameStore: GameStore, private val gameDisplay: 
     private var isPlayGame = true
 
     fun loop() {
-        println("<============================>")
-
         do {
             when (val gameState = gameStore.getGameState()) {
                 is GameState.Menu -> {
@@ -34,7 +32,7 @@ class GameController(private var gameStore: GameStore, private val gameDisplay: 
                             }
 
                             else -> {
-                                gameDisplay.showErrorInput()
+                                gameDisplay.showErrorInputCommand()
                                 isExitMenu = false
                             }
                         }
@@ -50,21 +48,21 @@ class GameController(private var gameStore: GameStore, private val gameDisplay: 
                     val newState = handlerUserInput(state = gameState)
 
                     if (isWin(newState)) {
-                        gameStore.setGameState(GameState.Win)
+                        gameStore.setGameState(GameState.Win(newState.word))
                     } else if (isGameOver(newState)) {
-                        gameStore.setGameState(GameState.GameOver)
+                        gameStore.setGameState(GameState.GameOver(newState.word))
                     } else {
                         gameStore.setGameState(gameState = newState)
                     }
                 }
 
-                GameState.Win -> {
-                    println("Вы выиграли")
+                is GameState.Win -> {
+                    gameDisplay.showWin(gameState.word)
                     gameStore.setGameState(GameState.Menu())
                 }
 
-                GameState.GameOver -> {
-                    println("Вы проиграли")
+                is GameState.GameOver -> {
+                    gameDisplay.showGameOver(gameState.word)
                     gameStore.setGameState(GameState.Menu())
                 }
             }
@@ -79,7 +77,7 @@ class GameController(private var gameStore: GameStore, private val gameDisplay: 
     private fun handlerUserInput(state: GameState.Process): GameState.Process {
         val input = readln().trim().lowercase()
         if (validateInput(input)) {
-            println("Буква не распознана! Пожалуйста, попробуйте еще раз")
+            gameDisplay.showErrorInputLetter()
             return state
         }
 
