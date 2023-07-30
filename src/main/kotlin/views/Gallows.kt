@@ -27,7 +27,7 @@ enum class Gallows(val view: String) {
              |  |
              O  |
              |  |
-               |
+                |
              ___|___"""
     ),
 
@@ -37,7 +37,7 @@ enum class Gallows(val view: String) {
              |  |
              O  |
             /|  |
-               |
+                |
              ___|___"""
     ),
 
@@ -47,7 +47,7 @@ enum class Gallows(val view: String) {
              |  |
              O  |
             /|\ |
-               |
+                |
              ___|___"""
     ),
 
