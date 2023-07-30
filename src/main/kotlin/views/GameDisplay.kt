@@ -18,7 +18,7 @@ class GameDisplay {
     }
 
     fun showGoodbye() {
-        println("Досвидание!!!")
+        println("До свидания!!!")
     }
 
     fun showErrorInputCommand() {
