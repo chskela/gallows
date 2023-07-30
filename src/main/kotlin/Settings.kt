@@ -1,3 +1,4 @@
 object Settings {
-    const val NUMBER_OF_MISTAKES = 6
+    const val MAX_NUMBER_OF_ERRORS = 6
+    const val PATH_FILE = "src/main/resources/singular.txt"
 }
