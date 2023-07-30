@@ -1,12 +1,17 @@
 package controllers
 
-import Settings
 import models.GameState
 import models.GameStore
+import models.WordStore
 import views.Gallows
 import views.GameDisplay
 
-class GameController(private var gameStore: GameStore, private val gameDisplay: GameDisplay) {
+class GameController(
+    private val wordStore: WordStore,
+    private var gameStore: GameStore,
+    private val gameDisplay: GameDisplay,
+    private val maxNumberOfErrors: Int
+) {
 
     private var isPlayGame = true
 
@@ -21,7 +26,7 @@ class GameController(private var gameStore: GameStore, private val gameDisplay: 
                         when (readlnOrNull()?.trim()?.lowercase()) {
                             "y" -> {
                                 gameDisplay.showLetsPlay()
-                                gameStore.setGameState(gameState = GameState.Process())
+                                gameStore.setGameState(gameState = GameState.Process(word = wordStore.getRandomWord()))
                                 isExitMenu = true
                             }
 
@@ -47,12 +52,12 @@ class GameController(private var gameStore: GameStore, private val gameDisplay: 
 
                     val newState = handlerUserInput(state = gameState)
 
-                    if (isWin(newState)) {
-                        gameStore.setGameState(GameState.Win(newState.word))
-                    } else if (isGameOver(newState)) {
-                        gameStore.setGameState(GameState.GameOver(newState.word))
-                    } else {
-                        gameStore.setGameState(gameState = newState)
+                    when {
+                        isWin(newState) -> gameStore.setGameState(GameState.Win(newState.word))
+
+                        isGameOver(newState) -> gameStore.setGameState(GameState.GameOver(newState.word))
+
+                        else -> gameStore.setGameState(gameState = newState)
                     }
                 }
 
@@ -72,7 +77,7 @@ class GameController(private var gameStore: GameStore, private val gameDisplay: 
 
     private fun isWin(state: GameState.Process) = state.mask == state.word
 
-    private fun isGameOver(state: GameState.Process) = state.attempts >= Settings.NUMBER_OF_MISTAKES
+    private fun isGameOver(state: GameState.Process) = state.attempts >= maxNumberOfErrors
 
     private fun handlerUserInput(state: GameState.Process): GameState.Process {
         val input = readln().trim().lowercase()

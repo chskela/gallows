@@ -1,8 +1,6 @@
 package models
 
-class GameStore {
-
-    private var _gameState: GameState = GameState.Menu()
+class GameStore(private var _gameState: GameState = GameState.Menu()) {
 
     fun setGameState(gameState: GameState) {
         _gameState = gameState
