@@ -13,5 +13,5 @@ sealed class GameState {
 
     data class Win(val word: String) : GameState()
 
-    data class GameOver(val word: String)  : GameState()
+    data class GameOver(val word: String, val gallows: Gallows = Gallows.RightLeg)  : GameState()
 }
