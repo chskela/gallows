@@ -53,21 +53,21 @@ class GameController(
                     val newState = handlerUserInput(state = gameState)
 
                     when {
-                        isWin(newState) -> gameStore.setGameState(GameState.Win(newState.word))
+                        isWin(newState) -> gameStore.setGameState(GameState.Win(word = newState.word))
 
-                        isGameOver(newState) -> gameStore.setGameState(GameState.GameOver(newState.word))
+                        isGameOver(newState) -> gameStore.setGameState(GameState.GameOver(word = newState.word))
 
                         else -> gameStore.setGameState(gameState = newState)
                     }
                 }
 
                 is GameState.Win -> {
-                    gameDisplay.showWin(gameState.word)
+                    gameDisplay.showWin(word = gameState.word)
                     gameStore.setGameState(GameState.Menu())
                 }
 
                 is GameState.GameOver -> {
-                    gameDisplay.showGameOver(gameState.word)
+                    gameDisplay.showGameOver(word = gameState.word, gallows = gameState.gallows.view)
                     gameStore.setGameState(GameState.Menu())
                 }
             }
