@@ -22,7 +22,7 @@ class GamePresenter(
                     gameDisplay.showMenu()
 
                     do {
-                        when (readln().trim().lowercase()) {
+                        when (gameDisplay.userInput()) {
                             "y" -> {
                                 gameDisplay.showLetsPlay()
                                 gameStore.setGameState(gameState = GameState.Process(word = wordStore.getRandomWord()))
@@ -76,7 +76,7 @@ class GamePresenter(
     private fun isGameOver(state: GameState.Process) = state.attempts >= maxNumberOfErrors
 
     private fun handlerUserInput(state: GameState.Process): GameState.Process {
-        val input = readln().trim().lowercase()
+        val input = gameDisplay.userInput()
 
         if (validateInput(input)) {
             gameDisplay.showErrorInputLetter()
