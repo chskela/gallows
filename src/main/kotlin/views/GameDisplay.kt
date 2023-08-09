@@ -25,7 +25,9 @@ class GameDisplay {
         println("Команда не распознана! Пожалуйста, попробуйте еще раз")
     }
 
-    fun showGameState(mask: String, attempts: Int, gallows: String) {
+    fun showGameState(mask: String, attempts: Int) {
+        val gallows = getNewGallows(attempts)
+
         print(
             """
             Загаданное слово: ${mask.uppercase().split("").joinToString(" ")}
@@ -57,5 +59,15 @@ class GameDisplay {
             Загаданное слово: ${word.uppercase()}
             
         """.trimIndent())
+    }
+
+    private fun getNewGallows(attempts: Int) = when (attempts) {
+        1 -> Gallows.Had
+        2 -> Gallows.Torso
+        3 -> Gallows.LeftHand
+        4 -> Gallows.RightHand
+        5 -> Gallows.LeftLeg
+        6 -> Gallows.RightLeg
+        else -> Gallows.Default
     }
 }
