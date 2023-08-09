@@ -1,12 +1,11 @@
-package controllers
+package presenters
 
 import models.GameState
 import models.GameStore
 import models.WordStore
-import views.Gallows
 import views.GameDisplay
 
-class GameController(
+class GamePresenter(
     private val wordStore: WordStore,
     private var gameStore: GameStore,
     private val gameDisplay: GameDisplay,
@@ -45,10 +44,7 @@ class GameController(
                 }
 
                 is GameState.Process -> {
-                    val mask = gameState.mask
-                    val attempts = gameState.attempts
-                    val gallows = gameState.gallows.view
-                    gameDisplay.showGameState(mask = mask, attempts = attempts, gallows = gallows)
+                    gameDisplay.showGameState(mask = gameState.mask, attempts = gameState.attempts)
 
                     val newState = handlerUserInput(state = gameState)
 
@@ -81,38 +77,26 @@ class GameController(
 
     private fun handlerUserInput(state: GameState.Process): GameState.Process {
         val input = readln().trim().lowercase()
+
         if (validateInput(input)) {
             gameDisplay.showErrorInputLetter()
             return state
         }
 
         val letter = input.first()
-        val n = if (state.word.contains(letter)) {
+
+        return if (state.word.contains(letter)) {
             val newMask = getNewMask(state, letter)
 
             state.copy(mask = newMask)
         } else {
-            val newAttempts = state.attempts + 1
-            val newGallows = getNewGallows(newAttempts)
-
-            state.copy(attempts = newAttempts, gallows = newGallows)
+            state.copy(attempts = state.attempts + 1)
         }
-        return n
     }
 
     private fun getNewMask(state: GameState.Process, letter: Char) = state.mask.mapIndexed { index, c ->
         if (letter == state.word[index]) letter else c
     }.joinToString("")
-
-    private fun getNewGallows(attempts: Int) = when (attempts) {
-        1 -> Gallows.Had
-        2 -> Gallows.Torso
-        3 -> Gallows.LeftHand
-        4 -> Gallows.RightHand
-        5 -> Gallows.LeftLeg
-        6 -> Gallows.RightLeg
-        else -> Gallows.Default
-    }
 
     private fun validateInput(input: String): Boolean =
         input.isBlank() || input.length != 1 || !input.first().isLetter()
