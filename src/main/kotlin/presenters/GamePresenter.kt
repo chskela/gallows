@@ -8,8 +8,7 @@ import views.GameDisplay
 class GamePresenter(
     private val wordStore: WordStore,
     private var gameStore: GameStore,
-    private val gameDisplay: GameDisplay,
-    private val maxNumberOfErrors: Int
+    private val gameDisplay: GameDisplay
 ) {
 
     private var isPlayGame = true
@@ -45,16 +44,15 @@ class GamePresenter(
 
                 is GameState.Process -> {
                     gameDisplay.showGameState(mask = gameState.mask, attempts = gameState.attempts)
+                    val input = gameDisplay.userInput()
 
-                    val newState = handlerUserInput(state = gameState)
-
-                    when {
-                        isWin(newState) -> gameStore.setGameState(GameState.Win(word = newState.word))
-
-                        isGameOver(newState) -> gameStore.setGameState(GameState.GameOver(word = newState.word))
-
-                        else -> gameStore.setGameState(gameState = newState)
+                    if (validateInput(input)) {
+                        gameStore.handlerEnteredLetter(input.first())
+                    } else {
+                        gameDisplay.showErrorInputLetter()
                     }
+
+
                 }
 
                 is GameState.Win -> {
@@ -71,33 +69,5 @@ class GamePresenter(
         } while (isPlayGame)
     }
 
-    private fun isWin(state: GameState.Process) = state.mask == state.word
-
-    private fun isGameOver(state: GameState.Process) = state.attempts >= maxNumberOfErrors
-
-    private fun handlerUserInput(state: GameState.Process): GameState.Process {
-        val input = gameDisplay.userInput()
-
-        if (validateInput(input)) {
-            gameDisplay.showErrorInputLetter()
-            return state
-        }
-
-        val letter = input.first()
-
-        return if (state.word.contains(letter)) {
-            val newMask = getNewMask(state, letter)
-
-            state.copy(mask = newMask)
-        } else {
-            state.copy(attempts = state.attempts + 1)
-        }
-    }
-
-    private fun getNewMask(state: GameState.Process, letter: Char) = state.mask.mapIndexed { index, c ->
-        if (letter == state.word[index]) letter else c
-    }.joinToString("")
-
-    private fun validateInput(input: String): Boolean =
-        input.isBlank() || input.length != 1 || !input.first().isLetter()
+    private fun validateInput(input: String): Boolean = input.length == 1 && input.first().isLetter()
 }
