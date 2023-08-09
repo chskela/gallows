@@ -61,6 +61,8 @@ class ConsoleDisplay : GameDisplay {
         """.trimIndent())
     }
 
+    override fun userInput(): String = readln().trim().lowercase()
+
     private fun getNewGallows(attempts: Int) = when (attempts) {
         1 -> Gallows.Had
         2 -> Gallows.Torso
