@@ -67,7 +67,7 @@ class GameController(
                 }
 
                 is GameState.GameOver -> {
-                    gameDisplay.showGameOver(word = gameState.word, gallows = gameState.gallows.view)
+                    gameDisplay.showGameOver(word = gameState.word)
                     gameStore.setGameState(GameState.Menu())
                 }
             }
