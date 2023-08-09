@@ -23,7 +23,7 @@ class GameController(
                     gameDisplay.showMenu()
 
                     do {
-                        when (readlnOrNull()?.trim()?.lowercase()) {
+                        when (readln().trim().lowercase()) {
                             "y" -> {
                                 gameDisplay.showLetsPlay()
                                 gameStore.setGameState(gameState = GameState.Process(word = wordStore.getRandomWord()))
