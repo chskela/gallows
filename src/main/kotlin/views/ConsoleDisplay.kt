@@ -69,5 +69,5 @@ class ConsoleDisplay : GameDisplay {
         5 -> Gallows.LeftLeg
         6 -> Gallows.RightLeg
         else -> Gallows.Default
-    }
+    }.view
 }
