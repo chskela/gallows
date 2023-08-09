@@ -9,4 +9,5 @@ interface GameDisplay {
     fun showErrorInputLetter()
     fun showWin(word: String)
     fun showGameOver(word: String)
+    fun userInput(): String
 }
