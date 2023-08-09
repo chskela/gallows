@@ -49,11 +49,11 @@ class GameDisplay {
         """.trimIndent())
     }
 
-    fun showGameOver(word: String, gallows: String){
+    fun showGameOver(word: String){
         println("""
             
             К сожалению, Вы проиграли!!!
-            Виселица: $gallows
+            Виселица: ${Gallows.RightLeg.view}
             Загаданное слово: ${word.uppercase()}
             
         """.trimIndent())
