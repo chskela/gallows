@@ -47,12 +47,17 @@ class GamePresenter(
                     val input = gameDisplay.userInput()
 
                     if (validateInput(input)) {
-                        gameStore.handlerEnteredLetter(input.first())
+                        val letter = input.first()
+
+                        if (gameStore.checkUsedLetters(letter)) {
+                            gameDisplay.showUsedLetter(letter)
+                        } else {
+                            gameStore.handlerEnteredLetter(letter)
+                        }
+
                     } else {
                         gameDisplay.showErrorInputLetter()
                     }
-
-
                 }
 
                 is GameState.Win -> {
