@@ -63,6 +63,10 @@ class ConsoleDisplay : GameDisplay {
 
     override fun userInput(): String = readln().trim().lowercase()
 
+    override fun showUsedLetter(letter: Char) {
+        println("Буква \"${letter.uppercase()}\" уже использована!")
+    }
+
     private fun getNewGallows(attempts: Int) = when (attempts) {
         1 -> Gallows.Had
         2 -> Gallows.Torso
