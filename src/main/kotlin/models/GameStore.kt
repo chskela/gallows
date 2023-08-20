@@ -12,10 +12,11 @@ class GameStore(private var _gameState: GameState = GameState.Menu(), private va
         when (val state = _gameState) {
 
             is GameState.Process -> {
+                val usedLetters = state.usedLetters + letter
                 val newState = if (state.word.contains(letter)) {
-                    state.copy(mask = updateMask(state, letter))
+                    state.copy(mask = updateMask(state, letter), usedLetters = usedLetters)
                 } else {
-                    state.copy(attempts = state.attempts + 1)
+                    state.copy(attempts = state.attempts + 1, usedLetters = usedLetters)
                 }
                 checkGameState(newState)
             }
