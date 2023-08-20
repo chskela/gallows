@@ -6,6 +6,7 @@ sealed class GameState {
         val word: String,
         val mask: String = word.replace(Regex("[А-яЁё]"), "*"),
         val attempts: Int = 0,
+        val usedLetters: Set<Char> = emptySet()
     ) : GameState()
 
     data class Win(val word: String) : GameState()
