@@ -24,6 +24,12 @@ class GameStore(private var _gameState: GameState = GameState.Menu(), private va
         }
     }
 
+    fun checkUsedLetters(letter: Char): Boolean = when (val state = _gameState) {
+        is GameState.Process -> state.usedLetters.contains(letter)
+
+        else -> false
+    }
+
     private fun checkGameState(newState: GameState.Process) {
         _gameState = when {
             isWin(newState) -> GameState.Win(word = newState.word)
