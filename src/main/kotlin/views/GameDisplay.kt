@@ -10,4 +10,5 @@ interface GameDisplay {
     fun showWin(word: String)
     fun showGameOver(word: String)
     fun userInput(): String
+    fun showUsedLetter(letter: Char)
 }
