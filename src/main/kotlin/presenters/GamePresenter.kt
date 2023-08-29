@@ -43,7 +43,11 @@ class GamePresenter(
                 }
 
                 is GameState.Process -> {
-                    gameDisplay.showGameState(mask = gameState.mask, attempts = gameState.attempts)
+                    gameDisplay.showGameState(
+                        mask = gameState.mask,
+                        attempts = gameState.attempts,
+                        usedLetters = gameState.usedLetters
+                    )
                     val input = gameDisplay.userInput()
 
                     if (validateInput(input)) {

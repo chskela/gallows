@@ -25,7 +25,7 @@ class ConsoleDisplay : GameDisplay {
         println("Команда не распознана! Пожалуйста, попробуйте еще раз")
     }
 
-    override fun showGameState(mask: String, attempts: Int) {
+    override fun showGameState(mask: String, attempts: Int, usedLetters: Set<Char>) {
         val gallows = getNewGallows(attempts)
 
         print(
@@ -33,6 +33,7 @@ class ConsoleDisplay : GameDisplay {
             Загаданное слово: ${mask.uppercase().split("").joinToString(" ")}
             Ошибок: $attempts
             Виселица: $gallows
+            Использованные буквы: [${usedLetters.joinToString(", ")}]
             Введите букву: 
         """.trimIndent()
         )
